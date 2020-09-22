@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "mc-bedrock-server-278512"
+  },
+  "targets": {
+    "mc-bedrock-server-278512": {
+      "hosting": {
+        "mc-bedrock-web-beta": [
+          "mc-bedrock-server-278512"
+        ]
+      }
+    }
+  }
+}

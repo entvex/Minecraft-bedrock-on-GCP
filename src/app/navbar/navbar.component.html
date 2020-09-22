@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+  <a [routerLink]="'.'" class="navbar-brand"> <img alt="Logo" src="assets/logo.png" style="height: 40px; width: 80px"> </a>
+
+  <button (click)="isMenuCollapsed = !isMenuCollapsed" class="navbar-toggler" type="button">
+    &#9776;
+  </button>
+
+  <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a (click)="isMenuCollapsed = true" [routerLink]="'home'" class="nav-link">Home</a>
+      </li>
+
+      <div *ngIf="auth.user | async as user; ">
+        <li class="nav-item">
+          <a (click)="isMenuCollapsed = true" [routerLink]="'servermanager'" class="nav-link">Server Manager</a>
+        </li>
+      </div>
+
+        <div *ngIf="auth.user | async as user; else loggedOut">
+          <li class="nav-item">
+            <a (click)="isMenuCollapsed = true" [routerLink]="'login'" class="nav-link">Logout</a>
+          </li>
+        </div>
+
+      <ng-template #loggedOut>
+        <li class="nav-item">
+          <a (click)="isMenuCollapsed = true" [routerLink]="'login'" class="nav-link">Login</a>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</nav>

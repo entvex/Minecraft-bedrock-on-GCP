@@ -1,0 +1,72 @@
+<div class="container">
+
+
+  <div *ngIf="auth.user | async as user; else showLogin">
+
+    <h2>Control panel</h2>
+    <div class="row">
+
+      <div class="col-4">
+        <p>Server status:
+          <bi
+            [ngClass]="{'mc-online': serverStatus.status== 'RUNNING' , 'mc-offline':serverStatus.status == 'TERMINATED' }"
+            name="cloud-check"></bi>
+        </p>
+      </div>
+
+      <div class="col-4">
+        <p>Start server
+          <button (click)="startServer()"
+                  [disabled]="serverStatus.status === 'RUNNING' || serverStatus.status === 'UNKNOWN' ">Start server
+          </button>
+        </p>
+      </div>
+
+      <div class="col-4">
+        <p>Start server
+          <button (click)="stopServer()"
+                  [disabled]="serverStatus.status === 'TERMINATED' || serverStatus.status === 'UNKNOWN' ">Stop server
+          </button>
+        </p>
+      </div>
+    </div>
+    <br>
+
+    <div *ngIf="this.serverStatus.status === 'RUNNING'; else showEmpty">
+
+        <div class="row mt-4">
+          <h3>Connecting to the server</h3>
+          <div class="col-12">
+            To connect to the server, log into Minecraft, select Multiplayer from the main menu, click the Add Server
+            button, and enter the web address shown below. <br>
+            <input readonly style="min-width: 100%" value="{{MINECRAFT_FQDM}}">
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <h3>Allowing a friend into the server</h3>
+          <div class="col-12">
+            To play with a friend, give them the URL below and ask them to paste it into their browser. That will allow
+            them
+            to connect to the server. <br>
+            <input readonly
+                   style="min-width: 100%"
+                   value="{{API_URL}}/api/add-a-friend">
+          </div>
+        </div>
+
+    </div>
+
+    <ng-template #showEmpty>
+
+    </ng-template>
+
+  </div>
+
+  <ng-template #showLogin>
+    <p>Please login.</p>
+  </ng-template>
+
+</div>
+
+
